@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Micha ❤️</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #ffebf3;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            margin-top: 100px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .hidden {
+            display: none;
+        }
+        button {
+            padding: 15px 25px;
+            font-size: 20px;
+            border: none;
+            background-color: #ff4d79;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff1a57;
+            transform: scale(1.1);
+        }
+        #noBtn {
+            position: absolute;
+        }
+        .emoji {
+            font-size: 40px;
+            animation: float 3s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+        .selected {
+            animation: pop 0.5s ease-in-out;
+        }
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .hearts {
+            position: absolute;
+            font-size: 30px;
+            animation: floatHearts 4s infinite;
+        }
+        @keyframes floatHearts {
+            from { transform: translateY(0); }
+            to { transform: translateY(-800px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay loop>
+        <source src="your-music-url.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        function createHeart() {
+            let heart = document.createElement("div");
+            heart.innerHTML = "❤️";
+            heart.classList.add("hearts");
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "100vh";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 4000);
+        }
+        setInterval(createHeart, 500);
+    </script>
+    
+    <div class="container" id="page1">
+        <h1>Hey Micha! I made something special for you ❤️</h1>
+        <button onclick="nextPage('page2')">Next</button>
+    </div>
+
+    <div class="container hidden" id="page2">
+        <h2>Some of my favorite moments with you 💕</h2>
+        <img src="your-image-url.jpg" width="300" alt="Memory" />
+        <p>Remember this? That was an amazing day! 😊</p>
+        <button onclick="nextPage('page3')">Next</button>
+    </div>
+
+    <div class="container hidden" id="page3">
+        <h2>Why I love you ❤️</h2>
+        <ul>
+            <li class="emoji">😊 Your smile makes my day</li>
+            <li class="emoji">😂 You always know how to make me laugh</li>
+            <li class="emoji">💕 You're the best part of my life</li>
+        </ul>
+        <button onclick="nextPage('page4')">One more thing...</button>
+    </div>
+
+    <div class="container hidden" id="page4">
+        <h2>What do you think is my favorite thing about you? 😊💖</h2>
+        <button onclick="checkAnswer(true, this)">Your smile 😁</button>
+        <button onclick="checkAnswer(false, this)">Your cooking 🍽️</button>
+        <button onclick="checkAnswer(false, this)">Your dance moves 💃</button>
+        <h2 id="answerMessage" class="hidden">Yes! Your smile lights up my world! ❤️💘🎉</h2>
+        <button class="hidden" id="continueButton" onclick="nextPage('page5')">Next</button>
+    </div>
+
+    <div class="container hidden" id="page5">
+        <h1>Micha, will you be my Valentine? 💖</h1>
+        <button onclick="yesAnswer()">YES! 💕🥰</button>
+        <button id="noBtn" onmouseover="moveNo()">No 😢</button>
+        <h2 id="finalMessage" class="hidden">Yay! I can't wait to spend Valentine's Day with you! ❤️🎉</h2>
+    </div>
+
+    <script>
+        function nextPage(pageId) {
+            document.querySelectorAll('.container').forEach(div => div.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+        
+        function checkAnswer(isCorrect, element) {
+            element.classList.add("selected");
+            if (isCorrect) {
+                document.getElementById("answerMessage").classList.remove("hidden");
+                document.getElementById("continueButton").classList.remove("hidden");
+            } else {
+                alert("Hmm... that's nice, but try again! 😊");
+            }
+        }
+        
+        function yesAnswer() {
+            document.getElementById("finalMessage").classList.remove("hidden");
+        }
+        
+        function moveNo() {
+            var noBtn = document.getElementById("noBtn");
+            noBtn.style.top = Math.random() * window.innerHeight + "px";
+            noBtn.style.left = Math.random() * window.innerWidth + "px";
+        }
+    </script>
+</body>
+</html>
