@@ -37,23 +37,6 @@
         #noBtn {
             position: absolute;
         }
-        .emoji {
-            font-size: 40px;
-            animation: float 3s infinite ease-in-out;
-        }
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
-        }
-        .selected {
-            animation: pop 0.5s ease-in-out;
-        }
-        @keyframes pop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -93,36 +76,38 @@
     </div>
 
     <div class="container hidden" id="page2">
-        <h2>Some of my favorite moments with you 💕</h2>
+        <h2>Some of my favorite moments with you ❤️</h2>
         <img src="your-image-url.jpg" width="300" alt="Memory" />
-        <p>Remember this? That was an amazing day! 😊</p>
+        <p>Remember this? That was an amazing day!</p>
         <button onclick="nextPage('page3')">Next</button>
+        <button onclick="prevPage('page1')">Back</button>
     </div>
 
     <div class="container hidden" id="page3">
-        <h2>Why I love you ❤️</h2>
-        <ul>
-            <li class="emoji">😊 Your smile makes my day</li>
-            <li class="emoji">😂 You always know how to make me laugh</li>
-            <li class="emoji">💕 You're the best part of my life</li>
-        </ul>
-        <button onclick="nextPage('page4')">One more thing...</button>
+        <h2>The Things I Love About You ❤️</h2>
+        <p>Select what you think I love most about you:</p>
+        <button onclick="checkAnswer(false, this)">Your smile</button>
+        <button onclick="checkAnswer(false, this)">Your intellect</button>
+        <button onclick="checkAnswer(false, this)">Your curiosity</button>
+        <button onclick="checkAnswer(false, this)">Your courage</button>
+        <button onclick="checkAnswer(false, this)">Your character</button>
+        <button onclick="checkAnswer(false, this)">Your body</button>
+        <button onclick="checkAnswer(false, this)">How passionate you are about the things you love</button>
+        <button onclick="checkAnswer(false, this)">Your personality</button>
+        <button onclick="checkAnswer(false, this)">Your dramatics</button>
+        <button onclick="checkAnswer(false, this)">Your nosiness</button>
+        <button onclick="checkAnswer(true, this)">All of the above ❤️</button>
+        <h2 id="answerMessage" class="hidden">Yes! I love everything about you! ❤️</h2>
+        <button class="hidden" id="continueButton" onclick="nextPage('page4')">Next</button>
+        <button onclick="prevPage('page2')">Back</button>
     </div>
 
     <div class="container hidden" id="page4">
-        <h2>What do you think is my favorite thing about you? 😊💖</h2>
-        <button onclick="checkAnswer(true, this)">Your smile 😁</button>
-        <button onclick="checkAnswer(false, this)">Your cooking 🍽️</button>
-        <button onclick="checkAnswer(false, this)">Your dance moves 💃</button>
-        <h2 id="answerMessage" class="hidden">Yes! Your smile lights up my world! ❤️💘🎉</h2>
-        <button class="hidden" id="continueButton" onclick="nextPage('page5')">Next</button>
-    </div>
-
-    <div class="container hidden" id="page5">
-        <h1>Micha, will you be my Valentine? 💖</h1>
-        <button onclick="yesAnswer()">YES! 💕🥰</button>
-        <button id="noBtn" onmouseover="moveNo()">No 😢</button>
-        <h2 id="finalMessage" class="hidden">Yay! I can't wait to spend Valentine's Day with you! ❤️🎉</h2>
+        <h1>Micha, will you be my Valentine? ❤️</h1>
+        <button onclick="yesAnswer()">YES! ❤️</button>
+        <button id="noBtn" onmouseover="moveNo()">No</button>
+        <h2 id="finalMessage" class="hidden">Yay! I can't wait to spend Valentine's Day with you! ❤️</h2>
+        <button onclick="prevPage('page3')">Back</button>
     </div>
 
     <script>
@@ -131,13 +116,17 @@
             document.getElementById(pageId).classList.remove('hidden');
         }
         
+        function prevPage(pageId) {
+            document.querySelectorAll('.container').forEach(div => div.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+        
         function checkAnswer(isCorrect, element) {
-            element.classList.add("selected");
             if (isCorrect) {
                 document.getElementById("answerMessage").classList.remove("hidden");
                 document.getElementById("continueButton").classList.remove("hidden");
             } else {
-                alert("Hmm... that's nice, but try again! 😊");
+                alert("That’s a great one, but there’s a better answer! Try again!");
             }
         }
         
@@ -153,3 +142,4 @@
     </script>
 </body>
 </html>
+
