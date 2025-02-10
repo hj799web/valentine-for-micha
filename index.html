@@ -55,29 +55,56 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        @keyframes floatHearts {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-800px); opacity: 0; }
+        }
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: red;
+            animation: floatHearts 4s infinite;
+        }
     </style>
 </head>
 <body>
+    <script>
+        function createHeart() {
+            let heart = document.createElement("div");
+            heart.innerHTML = "❤️";
+            heart.classList.add("heart");
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "100vh";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 4000);
+        }
+        setInterval(createHeart, 700);
+    </script>
+
     <audio autoplay loop>
         <source src="your-music-url.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
-    
+
     <div class="container" id="page1">
-        <h1> Bonjour (ou bonsoir) ma belle! I made something special for you</h1>
+        <h1>Hey Micha! I made something special for you ❤️</h1>
+        <h2 id="countdown"></h2>
         <button onclick="nextPage('page2')">Next</button>
     </div>
 
     <div class="container hidden" id="page2">
         <h2>Some of my favorite moments with you ❤️</h2>
-        <img src="your-image-url.jpg" width="300" alt="Memory" style="border-radius: 15px; box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);" />
+        <video width="320" height="240" controls>
+            <source src="your-video-url.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         <p>Remember this? That was an amazing day!</p>
         <button onclick="nextPage('page3')">Next</button>
         <button onclick="prevPage('page1')">Back</button>
     </div>
 
     <div class="container hidden" id="page3">
-        <h2>The Things I Love About You </h2>
+        <h2>The Things I Love About You ❤️</h2>
         <p>Select what you think I love most about you:</p>
         <select id="loveOptions">
             <option value="wrong">Your smile</option>
@@ -93,7 +120,7 @@
             <option value="correct">All of the above ❤️</option>
         </select>
         <button onclick="checkDropdownAnswer()">Submit</button>
-        <h2 id="answerMessage" class="hidden">I love everything about you baby! ❤️</h2>
+        <h2 id="answerMessage" class="hidden">Yes! I love everything about you! ❤️</h2>
         <button class="hidden" id="continueButton" onclick="nextPage('page4')">Next</button>
         <button onclick="prevPage('page2')">Back</button>
     </div>
@@ -103,7 +130,7 @@
         <button onclick="yesAnswer()">a) Yes</button>
         <button onclick="yesAnswer()">b) a)</button>
         <button onclick="yesAnswer()">c) b)</button>
-        <h2 id="finalMessage" class="hidden">Yay! Thank you ma belle I am very honoured! ❤️</h2>
+        <h2 id="finalMessage" class="hidden">Yay! I can't wait to spend Valentine's Day with you! ❤️</h2>
         <button onclick="prevPage('page3')">Back</button>
     </div>
 
@@ -131,10 +158,20 @@
         function yesAnswer() {
             document.getElementById("finalMessage").classList.remove("hidden");
         }
+        
+        function countdown() {
+            const eventDate = new Date("Feb 27, 2025 00:00:00").getTime();
+            setInterval(function() {
+                let now = new Date().getTime();
+                let timeLeft = eventDate - now;
+                let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                document.getElementById("countdown").innerHTML = `Seeing you in ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds! ❤️`;
+            }, 1000);
+        }
+        countdown();
     </script>
 </body>
 </html>
-
-
-
-
