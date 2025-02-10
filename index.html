@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Micha ❤️</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+        
         body {
             text-align: center;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background-color: #ffebf3;
+            font-family: 'Playfair Display', serif;
+            background-color: #f8f1f4;
+            color: #4a4a4a;
             overflow: hidden;
             position: relative;
         }
@@ -22,17 +25,22 @@
         button {
             padding: 15px 25px;
             font-size: 20px;
+            font-family: 'Poppins', sans-serif;
             border: none;
-            background-color: #ff4d79;
+            background-color: #d6336c;
             color: white;
-            border-radius: 10px;
+            border-radius: 30px;
             cursor: pointer;
             margin: 10px;
             transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         }
         button:hover {
-            background-color: #ff1a57;
+            background-color: #a72552;
             transform: scale(1.1);
+        }
+        h1, h2, p {
+            font-family: 'Playfair Display', serif;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -53,7 +61,7 @@
 
     <div class="container hidden" id="page2">
         <h2>Some of my favorite moments with you ❤️</h2>
-        <img src="your-image-url.jpg" width="300" alt="Memory" />
+        <img src="your-image-url.jpg" width="300" alt="Memory" style="border-radius: 15px; box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);" />
         <p>Remember this? That was an amazing day!</p>
         <button onclick="nextPage('page3')">Next</button>
         <button onclick="prevPage('page1')">Back</button>
@@ -113,5 +121,6 @@
     </script>
 </body>
 </html>
+
 
 
