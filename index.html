@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Micha ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
         
         body {
             text-align: center;
-            font-family: 'Playfair Display', serif;
+            font-family: 'Great Vibes', cursive;
             background-color: #f8f1f4;
             color: #4a4a4a;
             overflow: hidden;
@@ -22,10 +22,10 @@
         .hidden {
             display: none;
         }
-        button {
+        button, select {
             padding: 15px 25px;
             font-size: 20px;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Playfair Display', serif;
             border: none;
             background-color: #d6336c;
             color: white;
@@ -35,12 +35,21 @@
             transition: transform 0.3s ease, background-color 0.3s ease;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         }
-        button:hover {
+        button:hover, select:hover {
             background-color: #a72552;
             transform: scale(1.1);
         }
+        select {
+            padding: 10px;
+            background-color: white;
+            color: #4a4a4a;
+            border: 2px solid #d6336c;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
         h1, h2, p {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Great Vibes', cursive;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -55,7 +64,7 @@
     </audio>
     
     <div class="container" id="page1">
-        <h1>Hey Micha! I made something special for you ❤️</h1>
+        <h1> Bonjour (ou bonsoir) ma belle! I made something special for you</h1>
         <button onclick="nextPage('page2')">Next</button>
     </div>
 
@@ -68,20 +77,23 @@
     </div>
 
     <div class="container hidden" id="page3">
-        <h2>The Things I Love About You ❤️</h2>
+        <h2>The Things I Love About You </h2>
         <p>Select what you think I love most about you:</p>
-        <button onclick="checkAnswer(false, this)">Your smile</button>
-        <button onclick="checkAnswer(false, this)">Your intellect</button>
-        <button onclick="checkAnswer(false, this)">Your curiosity</button>
-        <button onclick="checkAnswer(false, this)">Your courage</button>
-        <button onclick="checkAnswer(false, this)">Your character</button>
-        <button onclick="checkAnswer(false, this)">Your body</button>
-        <button onclick="checkAnswer(false, this)">How passionate you are about the things you love</button>
-        <button onclick="checkAnswer(false, this)">Your personality</button>
-        <button onclick="checkAnswer(false, this)">Your dramatics</button>
-        <button onclick="checkAnswer(false, this)">Your nosiness</button>
-        <button onclick="checkAnswer(true, this)">All of the above ❤️</button>
-        <h2 id="answerMessage" class="hidden">Yes! I love everything about you! ❤️</h2>
+        <select id="loveOptions">
+            <option value="wrong">Your smile</option>
+            <option value="wrong">Your intellect</option>
+            <option value="wrong">Your curiosity</option>
+            <option value="wrong">Your courage</option>
+            <option value="wrong">Your character</option>
+            <option value="wrong">Your body</option>
+            <option value="wrong">How passionate you are about the things you love</option>
+            <option value="wrong">Your personality</option>
+            <option value="wrong">Your dramatics</option>
+            <option value="wrong">Your nosiness</option>
+            <option value="correct">All of the above ❤️</option>
+        </select>
+        <button onclick="checkDropdownAnswer()">Submit</button>
+        <h2 id="answerMessage" class="hidden">I love everything about you baby! ❤️</h2>
         <button class="hidden" id="continueButton" onclick="nextPage('page4')">Next</button>
         <button onclick="prevPage('page2')">Back</button>
     </div>
@@ -91,7 +103,7 @@
         <button onclick="yesAnswer()">a) Yes</button>
         <button onclick="yesAnswer()">b) a)</button>
         <button onclick="yesAnswer()">c) b)</button>
-        <h2 id="finalMessage" class="hidden">Yay! I can't wait to spend Valentine's Day with you! ❤️</h2>
+        <h2 id="finalMessage" class="hidden">Yay! Thank you ma belle I am very honoured! ❤️</h2>
         <button onclick="prevPage('page3')">Back</button>
     </div>
 
@@ -106,8 +118,9 @@
             document.getElementById(pageId).classList.remove('hidden');
         }
         
-        function checkAnswer(isCorrect, element) {
-            if (isCorrect) {
+        function checkDropdownAnswer() {
+            let selection = document.getElementById("loveOptions").value;
+            if (selection === "correct") {
                 document.getElementById("answerMessage").classList.remove("hidden");
                 document.getElementById("continueButton").classList.remove("hidden");
             } else {
@@ -121,6 +134,7 @@
     </script>
 </body>
 </html>
+
 
 
 
