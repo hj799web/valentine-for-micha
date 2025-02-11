@@ -65,6 +65,28 @@
             color: red;
             animation: floatHearts 4s infinite;
         }
+        .growing-heart {
+            font-size: 50px;
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #ff4d79; }
+            to { text-shadow: 0 0 20px #ff1a57; }
+        }
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-200px) rotate(720deg); opacity: 0; }
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff4d79;
+            opacity: 1;
+            animation: confetti 2s ease-out forwards;
+        }
     </style>
 </head>
 <body>
@@ -86,43 +108,16 @@
         Your browser does not support the audio element.
     </audio>
 
-    <div class="container" id="page1">
-        <h1>Bonjour ma belle! I made something special for you. Please press ''Next''</h1>
-        <h2 id="countdown"></h2>
-        <button onclick="nextPage('page2')">Next</button>
-    </div>
-
-    <div class="container hidden" id="page2">
-        <h2>Some of my favorite moments with you </h2>
-        <video width="320" height="240" controls>
-            <source src="your-video-url.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <p>Remember this? That was an amazing day!</p>
-        <button onclick="nextPage('page3')">Next</button>
-        <button onclick="prevPage('page1')">Back</button>
-    </div>
-
-    <div class="container hidden" id="page3">
-        <h2>The Things I Love About You </h2>
-        <p>Select what you think I love most about you:</p>
-        <select id="loveOptions">
-            <option value="wrong">Your smile</option>
-            <option value="wrong">Your intellect</option>
-            <option value="wrong">Your curiosity</option>
-            <option value="wrong">Your courage</option>
-            <option value="wrong">Your character</option>
-            <option value="wrong">Your body</option>
-            <option value="wrong">How passionate you are about the things you love</option>
-            <option value="wrong">Your personality</option>
-            <option value="wrong">Your dramatics</option>
-            <option value="wrong">Your nosiness</option>
-            <option value="correct">All of the above ❤️</option>
-        </select>
-        <button onclick="checkDropdownAnswer()">Submit</button>
-        <h2 id="answerMessage" class="hidden"> I love everything about you baby! ❤️</h2>
+    <div class="container hidden" id="page5">
+        <h2>Love grows when nurtured... but how? 🤔</h2>
+        <p>Can you figure out what makes my love for you grow?</p>
+        <div id="heartContainer">
+            <span id="growingHeart" class="growing-heart" onclick="growHeart()">❤️</span>
+        </div>
+        <p id="clickCountMessage">Clicks: 0 / 22</p>
+        <h2 id="finalLoveMessage" class="hidden">My love for you grows endlessly, just like this heart. ❤️</h2>
         <button class="hidden" id="continueButton" onclick="nextPage('page4')">Next</button>
-        <button onclick="prevPage('page2')">Back</button>
+        <button onclick="prevPage('page3')">Back</button>
     </div>
 
     <div class="container hidden" id="page4">
@@ -131,47 +126,41 @@
         <button onclick="yesAnswer()">b) a)</button>
         <button onclick="yesAnswer()">c) b)</button>
         <h2 id="finalMessage" class="hidden">Yay! Thank you baby! Je t'aime ma belle ❤️</h2>
-        <button onclick="prevPage('page3')">Back</button>
+        <button onclick="prevPage('page5')">Back</button>
     </div>
 
     <script>
-        function nextPage(pageId) {
-            document.querySelectorAll('.container').forEach(div => div.classList.add('hidden'));
-            document.getElementById(pageId).classList.remove('hidden');
-        }
-        
-        function prevPage(pageId) {
-            document.querySelectorAll('.container').forEach(div => div.classList.add('hidden'));
-            document.getElementById(pageId).classList.remove('hidden');
-        }
-        
-        function checkDropdownAnswer() {
-            let selection = document.getElementById("loveOptions").value;
-            if (selection === "correct") {
-                document.getElementById("answerMessage").classList.remove("hidden");
+        let clickCount = 0;
+        const maxClicks = 22;
+
+        function growHeart() {
+            clickCount++;
+            let heart = document.getElementById("growingHeart");
+            let message = document.getElementById("clickCountMessage");
+
+            heart.style.transform = `scale(${1 + clickCount * 0.1})`;
+            message.innerText = `Clicks: ${clickCount} / ${maxClicks}`;
+
+            if (clickCount === maxClicks) {
+                document.getElementById("finalLoveMessage").classList.remove("hidden");
                 document.getElementById("continueButton").classList.remove("hidden");
-            } else {
-                alert("That’s a great one, but there’s a better answer! Try again!");
             }
         }
-        
+
         function yesAnswer() {
             document.getElementById("finalMessage").classList.remove("hidden");
+            for (let i = 0; i < 100; i++) {
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.top = Math.random() * 100 + "vh";
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                confetti.style.animationDuration = `${Math.random() * 2 + 1}s`;
+                document.body.appendChild(confetti);
+                setTimeout(() => { confetti.remove(); }, 2000);
+            }
         }
-        
-        function countdown() {
-            const eventDate = new Date("Feb 27, 2025 00:00:00").getTime();
-            setInterval(function() {
-                let now = new Date().getTime();
-                let timeLeft = eventDate - now;
-                let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                document.getElementById("countdown").innerHTML = `Seeing you in ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds! ❤️`;
-            }, 1000);
-        }
-        countdown();
     </script>
 </body>
 </html>
+
