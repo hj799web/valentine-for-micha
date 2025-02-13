@@ -214,8 +214,8 @@
     <h2>Congratulations, ma belle!</h2>
     <p>You are officially my valentine for 2025! ❤️</p>
     <!-- Countdown display -->
-    <div id="countdown to when we will see each other"></div>
-    <p>I miss you ma belle and I will see you very soon</p>
+    <div id="countdown"></div>
+    <p>I miss you and I will see you very soon</p>
     <button onclick="prevPage('page4')">Back</button>
   </div>
 
@@ -302,11 +302,12 @@
       });
     }
     
-    // Countdown logic
+    // Countdown logic (days, hours, minutes, seconds only)
     function updateCountdown() {
       let now = new Date();
-      let target1 = new Date("February 27, 2025 00:00:00");
-      let target2 = new Date("February 28, 2025 00:00:00");
+      // Use ISO 8601 date strings for better compatibility
+      let target1 = new Date("2025-02-27T00:00:00");
+      let target2 = new Date("2025-02-28T00:00:00");
       let target;
       if (now < target1) {
         target = target1;
@@ -325,22 +326,20 @@
       let minutes = Math.floor(remainder / (60 * 1000));
       remainder %= (60 * 1000);
       let seconds = Math.floor(remainder / 1000);
-      let ms = remainder % 1000; // milliseconds
-      let micro = ms * 1000; // approximate microseconds
       
       // Format with leading zeros
       let daysStr = days.toString().padStart(2, '0');
       let hoursStr = hours.toString().padStart(2, '0');
       let minutesStr = minutes.toString().padStart(2, '0');
       let secondsStr = seconds.toString().padStart(2, '0');
-      let microStr = micro.toString().padStart(6, '0');
       
       document.getElementById("countdown").innerText =
-        `Countdown: ${daysStr}d ${hoursStr}h ${minutesStr}m ${secondsStr}s ${microStr}µs`;
+        `Countdown: ${daysStr}d ${hoursStr}h ${minutesStr}m ${secondsStr}s`;
     }
   </script>
 </body>
 </html>
+
 
 
 
